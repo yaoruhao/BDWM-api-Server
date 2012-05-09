@@ -44,6 +44,10 @@ public class Topic {
 		this.threadId = threadId;
 		this.url = url;
 	}
+	@Override
+	public String toString() {
+		return name + "\t" + division + "\t" + board + "\t" + threadId + "\t" + url;
+	}
 	
 	
 
