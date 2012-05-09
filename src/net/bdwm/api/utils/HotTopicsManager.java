@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import net.bdwm.api.model.HotTopicsModel;
 import net.bdwm.api.model.Topic;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -159,24 +161,28 @@ public class HotTopicsManager implements Runnable {
 		}
 		if (!divisionTopicsHashMap.isEmpty()) {
 			hotTopicsModel.setDivisionTopTopics(divisionTopicsHashMap);
+			hotTopicsModel.setDivisionHotJsonObject(JSONObject.fromObject(divisionTopicsHashMap));
 			logger.info("division topics update succeed.");
 		} else {
 			logger.warn("division topics update failed.");
 		}
 		if (!topTenTopics.isEmpty()) {
 			hotTopicsModel.setAllTopTopics(topTenTopics);
+			hotTopicsModel.setTopTenJsonArray(JSONArray.fromObject(topTenTopics));
 			logger.info("topten topics update succeed.");
 		} else {
 			logger.warn("topten topics update failed.");
 		}
 		if (!schoolTopics.isEmpty()) {
 			hotTopicsModel.setSchoolHotTopics(schoolTopics);
+			hotTopicsModel.setSchoolHotJsonArray(JSONArray.fromObject(schoolTopics));
 			logger.info("school topics update succeed.");
 		} else {
 			logger.warn("school topics update failed.");
 		}
 		if (!academicTopics.isEmpty()) {
 			hotTopicsModel.setAcademicHotTopics(academicTopics);
+			hotTopicsModel.setAcademicHotJsonArray(JSONArray.fromObject(academicTopics));
 			logger.info("academic topics update succeed.");
 		} else {
 			logger.warn("academic topics update failed.");

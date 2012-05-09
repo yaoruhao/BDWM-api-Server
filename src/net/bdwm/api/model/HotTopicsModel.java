@@ -3,6 +3,9 @@ package net.bdwm.api.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 public class HotTopicsModel {
 
 	// Top 10 topics
@@ -16,6 +19,48 @@ public class HotTopicsModel {
 
 	// Academic hot topics
 	private ArrayList<Topic> academicHotTopics;
+	
+	private JSONArray topTenJsonArray;
+	
+	private JSONObject divisionHotJsonObject;
+	
+	private JSONArray schoolHotJsonArray;
+	
+	private JSONArray academicHotJsonArray;
+
+	
+
+	public JSONArray getTopTenJsonArray() {
+		return topTenJsonArray;
+	}
+
+	public void setTopTenJsonArray(JSONArray topTenJsonArray) {
+		this.topTenJsonArray = topTenJsonArray;
+	}
+
+	public JSONObject getDivisionHotJsonObject() {
+		return divisionHotJsonObject;
+	}
+
+	public void setDivisionHotJsonObject(JSONObject divisionHotJsonObject) {
+		this.divisionHotJsonObject = divisionHotJsonObject;
+	}
+
+	public JSONArray getSchoolHotJsonArray() {
+		return schoolHotJsonArray;
+	}
+
+	public void setSchoolHotJsonArray(JSONArray schoolHotJsonArray) {
+		this.schoolHotJsonArray = schoolHotJsonArray;
+	}
+
+	public JSONArray getAcademicHotJsonArray() {
+		return academicHotJsonArray;
+	}
+
+	public void setAcademicHotJsonArray(JSONArray academicHotJsonArray) {
+		this.academicHotJsonArray = academicHotJsonArray;
+	}
 
 	public ArrayList<Topic> getAcademicHotTopics() {
 		return academicHotTopics;
