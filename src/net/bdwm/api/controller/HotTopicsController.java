@@ -48,17 +48,30 @@ public class HotTopicsController {
 	@RequestMapping(value = "/division", method = RequestMethod.GET)
 	@ResponseBody
 	public String divisionHotTopics() {
-		logger.info("divisioin");
-		String result = "division hottopics";
+		logger.info("division request");
 
-		return result;
+		return hotTopicsManager.getHotTopicsModel().getDivisionHotJsonObject().toString();
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@RequestMapping(value = "/topten", method = RequestMethod.GET)
 	@ResponseBody
-	public String allHotTopics() {
-		logger.warn("all");
-		return "all hottopics";
+	public String topTenHotTopics() {
+		logger.info("top ten request ");
+		return hotTopicsManager.getHotTopicsModel().getTopTenJsonArray().toString();
+	}
+	
+	@RequestMapping(value = "/academic", method = RequestMethod.GET)
+	@ResponseBody
+	public String academicHotTopics() {
+		logger.info("academic request");
+		return hotTopicsManager.getHotTopicsModel().getAcademicHotJsonArray().toString();
+	}
+	
+	@RequestMapping(value = "/school", method = RequestMethod.GET)
+	@ResponseBody
+	public String schoolHotTopics() {
+		logger.info("school request");
+		return hotTopicsManager.getHotTopicsModel().getSchoolHotJsonArray().toString();
 	}
 
 }

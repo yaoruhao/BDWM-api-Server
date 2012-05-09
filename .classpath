@@ -5,5 +5,10 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/commons-io-2.3.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/BDWM-api-Server/WebContent/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
