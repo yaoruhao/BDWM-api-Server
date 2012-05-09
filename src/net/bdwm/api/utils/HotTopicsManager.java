@@ -39,6 +39,16 @@ public class HotTopicsManager implements Runnable {
 	private String divisionEachPatterStr = "\\[<a href='bbsdoc.php\\?board=[^']+'>(.*?)</a>\\] </span><a href='([^']+)'>(.*?)</a><br /></span>";
 
 	private String urlPatternStr = "bbstcon.php\\?board=([^&]+)&threadid=(.+)";
+	
+	private int sleepSecond = 0;
+
+	public int getSleepSecond() {
+		return sleepSecond;
+	}
+
+	public void setSleepSecond(int sleepSecond) {
+		this.sleepSecond = sleepSecond;
+	}
 
 	private Pattern urlPattern;
 
@@ -61,16 +71,19 @@ public class HotTopicsManager implements Runnable {
 	}
 
 	public void init() {
-		if (bbsPrefixUrl == null || bbsMainBoardUrl == null) {
-			logger.warn("HotTopicsManager init failed, bbsPrefixUrl is null");
+		if (bbsPrefixUrl == null || bbsMainBoardUrl == null || sleepSecond == 0) {
+			logger.warn("HotTopicsManager init failed, plz check the init file.");
+		} else {
+			hotTopicsModel = new HotTopicsModel();
+			topTenPattern = Pattern.compile(topTenPatternStr);
+			topTenEachPattern = Pattern.compile(topTenPatternEachStr);
+			divisionPattern = Pattern.compile(divisionPatternStr);
+			schoolHotPattern = Pattern.compile(schoolHotTopicPatternStr);
+			divisionEachPattern = Pattern.compile(divisionEachPatterStr);
+			urlPattern = Pattern.compile(urlPatternStr);
+			logger.info("HotTopicsManager init succeed.");
 		}
-		logger.info("HotTopicsManager init succeed.");
-		topTenPattern = Pattern.compile(topTenPatternStr);
-		topTenEachPattern = Pattern.compile(topTenPatternEachStr);
-		divisionPattern = Pattern.compile(divisionPatternStr);
-		schoolHotPattern = Pattern.compile(schoolHotTopicPatternStr);
-		divisionEachPattern = Pattern.compile(divisionEachPatterStr);
-		urlPattern = Pattern.compile(urlPatternStr);
+		
 	}
 
 	public static synchronized HotTopicsManager getInstance() {
@@ -89,7 +102,7 @@ public class HotTopicsManager implements Runnable {
 
 	public void run() {
 		while (true) {
-			logger.info("Thread running");
+			logger.info("HotTopics update thread running");
 			InputStream in = null;
 			String resource = null;
 			try {
@@ -105,11 +118,12 @@ public class HotTopicsManager implements Runnable {
 				parseMainBoard(resource);
 			}
 			try {
-				Thread.sleep(2000);
+				logger.info("HotTopics update sleep :"+sleepSecond+" seconds.");
+				Thread.sleep(1000*sleepSecond);
 			} catch (InterruptedException e) {
 				logger.warn("Thread exception");
 			}
-			logger.info("Thread wakeup");
+			logger.info("HotTopics update thread wakeup");
 		}
 
 	}

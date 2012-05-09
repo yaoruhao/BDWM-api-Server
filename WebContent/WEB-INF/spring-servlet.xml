@@ -11,6 +11,7 @@
 	<bean id="hotTopicsManager" class="net.bdwm.api.utils.HotTopicsManager" init-method="init">
 	<property name="bbsPrefixUrl"><value>http://www.bdwm.net/</value></property>
 	<property name="bbsMainBoardUrl"><value>http://www.bdwm.net/bbs/main.php</value></property>
+	<property name="sleepSecond"><value>60</value></property>
 	</bean>
 		
 	<bean id="hotTopicsController" class="net.bdwm.api.controller.HotTopicsController" init-method="init">
