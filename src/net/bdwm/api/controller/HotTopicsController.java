@@ -19,17 +19,16 @@ public class HotTopicsController {
 
 	private static Log logger = LogFactory.getLog(HotTopicsController.class);
 	private static HotTopicsManager hotTopicsManager;
-	
+
 	public void init() {
-		
+
 		if (hotTopicsManager == null) {
 			logger.error("HotTopicsController init failed, hotTopicsManager is null.");
 		}
 		new Thread(hotTopicsManager).start();
-		
-		
+
 	}
-	
+
 	public static HotTopicsManager getHotTopicsManager() {
 		return hotTopicsManager;
 	}
@@ -45,19 +44,19 @@ public class HotTopicsController {
 		System.out.println(message);
 		return new ModelAndView("hello", "message", message);
 	}
-	
+
 	@RequestMapping(value = "/division", method = RequestMethod.GET)
 	@ResponseBody
-	public String divisionHotTopics()  {
+	public String divisionHotTopics() {
 		logger.info("divisioin");
 		String result = "division hottopics";
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	@ResponseBody
-	public String allHotTopics()  {
+	public String allHotTopics() {
 		logger.warn("all");
 		return "all hottopics";
 	}
