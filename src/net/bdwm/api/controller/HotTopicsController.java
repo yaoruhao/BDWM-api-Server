@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
+/**
+ * 
+ * @author Ruhao Yao
+ *
+ */
 @Controller
 @RequestMapping("/hottopics")
 public class HotTopicsController {
@@ -38,20 +44,25 @@ public class HotTopicsController {
 
 	@RequestMapping("/{operation}")
 	public ModelAndView handleRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1, @PathVariable String operation) throws Exception {
+			HttpServletResponse arg1, @PathVariable String operation)
+			throws Exception {
 		String message = null;
 		if ("division".equals(operation)) {
 			logger.info("division request");
-			message = hotTopicsManager.getHotTopicsModel().getDivisionHotJsonObject().toString();
+			message = hotTopicsManager.getHotTopicsModel()
+					.getDivisionHotJsonObject().toString();
 		} else if ("topten".equals(operation)) {
 			logger.info("top ten request");
-			message = hotTopicsManager.getHotTopicsModel().getTopTenJsonArray().toString();
+			message = hotTopicsManager.getHotTopicsModel().getTopTenJsonArray()
+					.toString();
 		} else if ("academic".equals(operation)) {
 			logger.info("academic request");
-			message = hotTopicsManager.getHotTopicsModel().getAcademicHotJsonArray().toString();
+			message = hotTopicsManager.getHotTopicsModel()
+					.getAcademicHotJsonArray().toString();
 		} else if ("school".equals(operation)) {
 			logger.info("school request");
-			message = hotTopicsManager.getHotTopicsModel().getSchoolHotJsonArray().toString();
+			message = hotTopicsManager.getHotTopicsModel()
+					.getSchoolHotJsonArray().toString();
 		} else {
 			logger.warn("HotTopicsController invalid request:" + operation);
 		}

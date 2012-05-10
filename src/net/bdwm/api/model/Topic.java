@@ -1,5 +1,10 @@
 package net.bdwm.api.model;
 
+/**
+ * 
+ * @author Ruhao Yao
+ *
+ */
 public class Topic {
 
 	private String name;
@@ -7,6 +12,44 @@ public class Topic {
 	private String board;
 	private String threadId;
 	private String url;
+	private Boolean isTop;
+	private String author;
+	private String replyNum;
+	private String wordCount;
+
+
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getReplyNum() {
+		return replyNum;
+	}
+
+	public void setReplyNum(String replyNum) {
+		this.replyNum = replyNum;
+	}
+
+	public String getWordCount() {
+		return wordCount;
+	}
+
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
+	}
+
+	public Boolean getIsTop() {
+		return isTop;
+	}
+
+	public void setIsTop(Boolean isTop) {
+		this.isTop = isTop;
+	}
 
 	public String getUrl() {
 		return url;
@@ -47,6 +90,20 @@ public class Topic {
 	public void setThreadId(String threadId) {
 		this.threadId = threadId;
 	}
+	
+	public Topic(String name, String division, String board, String threadId,
+			String url, Boolean isTop, String author, String replyNum,
+			String wordCount) {
+		this.name = name;
+		this.division = division;
+		this.board = board;
+		this.threadId = threadId;
+		this.url = url;
+		this.isTop = isTop;
+		this.author = author;
+		this.replyNum = replyNum;
+		this.wordCount = wordCount;
+	}
 
 	public Topic(String name, String division, String board, String threadId,
 			String url) {
@@ -55,6 +112,11 @@ public class Topic {
 		this.board = board;
 		this.threadId = threadId;
 		this.url = url;
+		if (threadId == null) {
+			this.isTop = true;
+		} else {
+			this.isTop = false;
+		}
 	}
 
 	@Override
