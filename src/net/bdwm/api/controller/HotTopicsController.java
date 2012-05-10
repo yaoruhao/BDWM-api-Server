@@ -43,8 +43,8 @@ public class HotTopicsController {
 	}
 
 	@RequestMapping("/{operation}")
-	public ModelAndView handleRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1, @PathVariable String operation)
+	public ModelAndView handleRequest(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable String operation)
 			throws Exception {
 		String message = null;
 		if ("division".equals(operation)) {
@@ -66,7 +66,7 @@ public class HotTopicsController {
 		} else {
 			logger.warn("HotTopicsController invalid request:" + operation);
 		}
-		arg1.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		return new ModelAndView("result", "message", message);
 	}
 

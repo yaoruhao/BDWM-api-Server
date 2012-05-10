@@ -52,10 +52,12 @@ public class BoardManager {
 	public void init() {
 		if (boardUrlPrefix == null) {
 			logger.error("Board Manager init failed.");
+		} else {
+			topTopicPattern = Pattern.compile(topTopicPatternStr);
+			topicPattern = Pattern.compile(topicPatternStr);
+			urlPattern = Pattern.compile(urlPatternStr);
 		}
-		topTopicPattern = Pattern.compile(topTopicPatternStr);
-		topicPattern = Pattern.compile(topicPatternStr);
-		urlPattern = Pattern.compile(urlPatternStr);
+		
 	}
 
 	public static synchronized BoardManager getInstance() {
