@@ -17,6 +17,14 @@
 	<bean id="boardManager" class="net.bdwm.api.utils.BoardManager" init-method="init">
 	<property name="boardUrlPrefix"><value>http://www.bdwm.net/bbs/bbstop.php?</value></property>
 	</bean>
+	
+	<bean id="topicManager" class="net.bdwm.api.utils.TopicManager" init-method="init">
+	<property name="bbsPrefixUrl"><value>http://www.bdwm.net/bbs/</value></property></bean>
+	
+	<bean id="topicController" class="net.bdwm.api.controller.TopicController" init-method="init">
+	<property name="topicManager"><ref bean="topicManager"/>
+	</property>
+	</bean>
 		
 	<bean id="hotTopicsController" class="net.bdwm.api.controller.HotTopicsController" init-method="init">
 	<property name="hotTopicsManager"><ref bean="hotTopicsManager"/></property>
