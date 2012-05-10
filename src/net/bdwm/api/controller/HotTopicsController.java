@@ -8,9 +8,8 @@ import net.bdwm.api.utils.HotTopicsManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,41 +36,27 @@ public class HotTopicsController {
 		HotTopicsController.hotTopicsManager = hotTopicsManager;
 	}
 
-	@RequestMapping("/hello")
+	@RequestMapping("/{operation}")
 	public ModelAndView handleRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		String message = "Hot topics, Spring 3.0!";
-		System.out.println(message);
-		return new ModelAndView("hello", "message", message);
-	}
-
-	@RequestMapping(value = "/division", method = RequestMethod.GET)
-	@ResponseBody
-	public String divisionHotTopics() {
-		logger.info("division request");
-
-		return hotTopicsManager.getHotTopicsModel().getDivisionHotJsonObject().toString();
-	}
-
-	@RequestMapping(value = "/topten", method = RequestMethod.GET)
-	@ResponseBody
-	public String topTenHotTopics() {
-		logger.info("top ten request ");
-		return hotTopicsManager.getHotTopicsModel().getTopTenJsonArray().toString();
-	}
-	
-	@RequestMapping(value = "/academic", method = RequestMethod.GET)
-	@ResponseBody
-	public String academicHotTopics() {
-		logger.info("academic request");
-		return hotTopicsManager.getHotTopicsModel().getAcademicHotJsonArray().toString();
-	}
-	
-	@RequestMapping(value = "/school", method = RequestMethod.GET)
-	@ResponseBody
-	public String schoolHotTopics() {
-		logger.info("school request");
-		return hotTopicsManager.getHotTopicsModel().getSchoolHotJsonArray().toString();
+			HttpServletResponse arg1, @PathVariable String operation) throws Exception {
+		String message = null;
+		if ("division".equals(operation)) {
+			logger.info("division request");
+			message = hotTopicsManager.getHotTopicsModel().getDivisionHotJsonObject().toString();
+		} else if ("topten".equals(operation)) {
+			logger.info("top ten request");
+			message = hotTopicsManager.getHotTopicsModel().getTopTenJsonArray().toString();
+		} else if ("academic".equals(operation)) {
+			logger.info("academic request");
+			message = hotTopicsManager.getHotTopicsModel().getAcademicHotJsonArray().toString();
+		} else if ("school".equals(operation)) {
+			logger.info("school request");
+			message = hotTopicsManager.getHotTopicsModel().getSchoolHotJsonArray().toString();
+		} else {
+			logger.warn("HotTopicsController invalid request:" + operation);
+		}
+		arg1.setCharacterEncoding("UTF-8");
+		return new ModelAndView("result", "message", message);
 	}
 
 }
