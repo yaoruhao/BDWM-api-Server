@@ -11,13 +11,20 @@
 	<bean id="hotTopicsManager" class="net.bdwm.api.utils.HotTopicsManager" init-method="init">
 	<property name="bbsPrefixUrl"><value>http://www.bdwm.net/</value></property>
 	<property name="bbsMainBoardUrl"><value>http://www.bdwm.net/bbs/main.php</value></property>
-	<property name="sleepSecond"><value>60</value></property>
+	<property name="sleepSecond"><value>300</value></property>
+	</bean>
+	
+	<bean id="boardManager" class="net.bdwm.api.utils.BoardManager" init-method="init">
+	<property name="boardUrlPrefix"><value>http://www.bdwm.net/bbs/bbstop.php?</value></property>
 	</bean>
 		
 	<bean id="hotTopicsController" class="net.bdwm.api.controller.HotTopicsController" init-method="init">
 	<property name="hotTopicsManager"><ref bean="hotTopicsManager"/></property>
 	</bean>
 	
+	<bean id="boardController" class="net.bdwm.api.controller.BoardController" init-method="init">
+	<property name="boardManager"><ref bean="boardManager"/></property>
+	</bean>
 	
 		
 	<bean id="viewResolver"

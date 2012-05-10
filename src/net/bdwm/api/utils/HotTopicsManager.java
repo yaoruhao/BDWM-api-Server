@@ -17,6 +17,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * 
+ * @author Ruhao Yao
+ *
+ */
 public class HotTopicsManager implements Runnable {
 	private static Log logger = LogFactory.getLog(HotTopicsManager.class);
 
@@ -41,7 +46,7 @@ public class HotTopicsManager implements Runnable {
 	private String divisionEachPatterStr = "\\[<a href='bbsdoc.php\\?board=[^']+'>(.*?)</a>\\] </span><a href='([^']+)'>(.*?)</a><br /></span>";
 
 	private String urlPatternStr = "bbstcon.php\\?board=([^&]+)&threadid=(.+)";
-	
+
 	private int sleepSecond = 0;
 
 	public int getSleepSecond() {
@@ -85,7 +90,7 @@ public class HotTopicsManager implements Runnable {
 			urlPattern = Pattern.compile(urlPatternStr);
 			logger.info("HotTopicsManager init succeed.");
 		}
-		
+
 	}
 
 	public static synchronized HotTopicsManager getInstance() {
@@ -120,8 +125,9 @@ public class HotTopicsManager implements Runnable {
 				parseMainBoard(resource);
 			}
 			try {
-				logger.info("HotTopics update sleep :"+sleepSecond+" seconds.");
-				Thread.sleep(1000*sleepSecond);
+				logger.info("HotTopics update sleep :" + sleepSecond
+						+ " seconds.");
+				Thread.sleep(1000 * sleepSecond);
 			} catch (InterruptedException e) {
 				logger.warn("Thread exception");
 			}
@@ -161,28 +167,32 @@ public class HotTopicsManager implements Runnable {
 		}
 		if (!divisionTopicsHashMap.isEmpty()) {
 			hotTopicsModel.setDivisionTopTopics(divisionTopicsHashMap);
-			hotTopicsModel.setDivisionHotJsonObject(JSONObject.fromObject(divisionTopicsHashMap));
+			hotTopicsModel.setDivisionHotJsonObject(JSONObject
+					.fromObject(divisionTopicsHashMap));
 			logger.info("division topics update succeed.");
 		} else {
 			logger.warn("division topics update failed.");
 		}
 		if (!topTenTopics.isEmpty()) {
 			hotTopicsModel.setAllTopTopics(topTenTopics);
-			hotTopicsModel.setTopTenJsonArray(JSONArray.fromObject(topTenTopics));
+			hotTopicsModel.setTopTenJsonArray(JSONArray
+					.fromObject(topTenTopics));
 			logger.info("topten topics update succeed.");
 		} else {
 			logger.warn("topten topics update failed.");
 		}
 		if (!schoolTopics.isEmpty()) {
 			hotTopicsModel.setSchoolHotTopics(schoolTopics);
-			hotTopicsModel.setSchoolHotJsonArray(JSONArray.fromObject(schoolTopics));
+			hotTopicsModel.setSchoolHotJsonArray(JSONArray
+					.fromObject(schoolTopics));
 			logger.info("school topics update succeed.");
 		} else {
 			logger.warn("school topics update failed.");
 		}
 		if (!academicTopics.isEmpty()) {
 			hotTopicsModel.setAcademicHotTopics(academicTopics);
-			hotTopicsModel.setAcademicHotJsonArray(JSONArray.fromObject(academicTopics));
+			hotTopicsModel.setAcademicHotJsonArray(JSONArray
+					.fromObject(academicTopics));
 			logger.info("academic topics update succeed.");
 		} else {
 			logger.warn("academic topics update failed.");
@@ -229,13 +239,13 @@ public class HotTopicsManager implements Runnable {
 				String url = m.group(2);
 				String name = m.group(3);
 				String board = null;
-				String threadid = null;
+				String threadId = null;
 				Matcher urlMatcher = urlPattern.matcher(url);
 				if (urlMatcher.find()) {
 					board = urlMatcher.group(1);
-					threadid = urlMatcher.group(2);
+					threadId = urlMatcher.group(2);
 				}
-				Topic topic = new Topic(name, division, board, threadid, url);
+				Topic topic = new Topic(name, division, board, threadId, url);
 				topicList.add(topic);
 			}
 			divisionTopics.put(topDivisionStr, topicList);
@@ -252,13 +262,13 @@ public class HotTopicsManager implements Runnable {
 			String url = topTenMatch.group(2);
 			String name = topTenMatch.group(3);
 			String board = null;
-			String threadid = null;
+			String threadId = null;
 			Matcher m = urlPattern.matcher(url);
 			if (m.find()) {
 				board = m.group(1);
-				threadid = m.group(2);
+				threadId = m.group(2);
 			}
-			Topic topic = new Topic(name, division, board, threadid, url);
+			Topic topic = new Topic(name, division, board, threadId, url);
 			topTenTopics.add(topic);
 			logger.info("Top ten topics add:" + topic.toString());
 		}

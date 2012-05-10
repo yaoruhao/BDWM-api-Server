@@ -6,6 +6,11 @@ import java.util.HashMap;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+/**
+ * 
+ * @author Ruhao Yao
+ *
+ */
 public class HotTopicsModel {
 
 	// Top 10 topics
