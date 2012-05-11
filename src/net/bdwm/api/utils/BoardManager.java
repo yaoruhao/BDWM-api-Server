@@ -13,11 +13,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * 
  * @author Ruhao Yao
- *
+ * 
  */
 public class BoardManager {
 
@@ -57,7 +56,7 @@ public class BoardManager {
 			topicPattern = Pattern.compile(topicPatternStr);
 			urlPattern = Pattern.compile(urlPatternStr);
 		}
-		
+
 	}
 
 	public static synchronized BoardManager getInstance() {
@@ -72,6 +71,7 @@ public class BoardManager {
 		InputStream in = null;
 		String resource = null;
 		String urlStr = boardUrlPrefix + "board=" + boardName + "&skip=" + skip;
+		long startTime = System.currentTimeMillis();
 		try {
 			in = new URL(urlStr).openStream();
 			resource = IOUtils.toString(in);
@@ -85,6 +85,10 @@ public class BoardManager {
 			logger.warn("BoardManager getBoard data failed:" + urlStr);
 			return resultList;
 		}
+		logger.info("Board Manager use:"
+				+ (System.currentTimeMillis() - startTime)
+				+ "ms to read board:" + boardName);
+		startTime = System.currentTimeMillis();
 		// the board not exist.
 		if (resource.indexOf(errorPageStr) != -1) {
 			logger.warn("board not exists:" + urlStr);
@@ -94,26 +98,36 @@ public class BoardManager {
 		if (tempIndex != -1) {
 			resource = resource.substring(tempIndex);
 		}
-
-		Matcher matcher = topTopicPattern.matcher(resource);
-		while (matcher.find()) {
-			String author = matcher.group(1);
-			String time = matcher.group(2);
-			String url = matcher.group(3);
-			String name = matcher.group(4);
-			String replyCount = matcher.group(5).trim();
-			String wordCount = matcher.group(6);
-			Topic topic = new Topic(name, null, boardName, null, url, true,
-					author, replyCount, wordCount);
-			resultList.addFirst(topic);
-			logger.info("board:" + boardName + "get top topic\tauthor:"
-					+ author + "\ttime:" + time + "\turl:" + url + "\tname:"
-					+ name + "\treply:" + replyCount + "\twordCount:"
-					+ wordCount);
+		int skipNum = 0;
+		try {
+			skipNum = Integer.parseInt(skip);
+		} catch (NumberFormatException e) {
+			logger.warn("visit board request contains illegal skip:" + skip);
 		}
+		Matcher matcher = null;
+		// Only parse top if skipNum == 0
+		if (skipNum == 0) {
+			matcher = topTopicPattern.matcher(resource);
+			while (matcher.find()) {
+				String author = matcher.group(1);
+				String time = matcher.group(2);
+				String url = matcher.group(3);
+				String name = matcher.group(4);
+				String replyCount = matcher.group(5).trim();
+				String wordCount = matcher.group(6);
+				Topic topic = new Topic(name, null, boardName, null, url, true,
+						author, replyCount, wordCount);
+				// top topic is added in order.
+				resultList.addLast(topic);
+				logger.info("board:" + boardName + "get top topic\tauthor:"
+						+ author + "\ttime:" + time + "\turl:" + url
+						+ "\tname:" + name + "\treply:" + replyCount
+						+ "\twordCount:" + wordCount);
+			}
+		}
+		int topTopicNum = resultList.size();
 		matcher = topicPattern.matcher(resource);
 		while (matcher.find()) {
-			System.out.println(matcher.group(0));
 			String author = matcher.group(1);
 			String time = matcher.group(2);
 			String url = matcher.group(3);
@@ -129,13 +143,17 @@ public class BoardManager {
 			}
 			Topic topic = new Topic(name, null, board, threadId, url, false,
 					author, replyCount, wordCount);
-			resultList.addFirst(topic);
+			// regular topic is added after top topic by its publish time. The
+			// newest regular topic is at the bottom of the board page.
+			resultList.add(topTopicNum, topic);
 			logger.info("board:" + boardName + "get regular topic\tauthor:"
 					+ author + "\ttime:" + time + "\turl:" + url + "\tname:"
 					+ name + "\treply:" + replyCount + "\twordCount:"
 					+ wordCount);
 		}
-
+		logger.info("Board Manager use:"
+				+ (System.currentTimeMillis() - startTime)
+				+ "ms to extract board:" + boardName);
 		return resultList;
 	}
 

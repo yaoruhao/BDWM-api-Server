@@ -1,2 +1,7 @@
 Welcome to BDWM-api-Server project!
-To be finished..
+
+The server is a RESTful Web Service by Spring 3.1.1
+
+Detail apis can be found in index.jsp
+
+To be continued..

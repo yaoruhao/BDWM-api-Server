@@ -43,16 +43,16 @@ public class BoardController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable String boardId,
 			@PathVariable String skipId) throws Exception {
+		long startTime = System.currentTimeMillis();
 		String message = null;
-
-		logger.info(boardId);
-		logger.info(skipId);
 
 		JSONArray array = JSONArray.fromObject(boardManager.getBoardData(
 				boardId, skipId));
 		message = array.toString();
 
 		response.setCharacterEncoding("UTF-8");
+		long endTime = System.currentTimeMillis();
+		logger.info("BoardController use:"+(endTime - startTime)+"ms for visit board:"+boardId+" skipId:"+skipId);
 		return new ModelAndView("result", "message", message);
 	}
 
