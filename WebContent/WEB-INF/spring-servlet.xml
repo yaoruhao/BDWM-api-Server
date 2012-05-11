@@ -21,6 +21,14 @@
 	<bean id="topicManager" class="net.bdwm.api.utils.TopicManager" init-method="init">
 	<property name="bbsPrefixUrl"><value>http://www.bdwm.net/bbs/</value></property></bean>
 	
+	<bean id="divisionManager" class="net.bdwm.api.utils.DivisionManager" init-method="init">
+	<property name="bbsPrefixUrl"><value>http://www.bdwm.net/bbs/</value></property>
+	<property name="mainDivisionUrl"><value>http://www.bdwm.net/bbs/bbsxboa.php?group=0</value></property>
+	</bean>
+	
+	<bean id="divisionController" class="net.bdwm.api.controller.DivisionController">
+	</bean>
+	
 	<bean id="topicController" class="net.bdwm.api.controller.TopicController" init-method="init">
 	<property name="topicManager"><ref bean="topicManager"/>
 	</property>

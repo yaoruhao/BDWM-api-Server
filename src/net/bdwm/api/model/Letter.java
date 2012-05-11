@@ -11,7 +11,19 @@ public class Letter {
 	private String title;
 	private String time;
 	private String content;
-	private String replyContent;
+	private String replyUrl;
+	private String mailUrl;
+
+	public Letter(String author, String board, String title, String time,
+			String content, String replyUrl, String mailUrl) {
+		this.author = author;
+		this.board = board;
+		this.title = title;
+		this.time = time;
+		this.content = content;
+		this.replyUrl = replyUrl;
+		this.mailUrl = mailUrl;
+	}
 
 	public String getAuthor() {
 		return author;
@@ -31,17 +43,6 @@ public class Letter {
 
 	public String getTitle() {
 		return title;
-	}
-
-	public Letter(String author, String board, String title, String time,
-			String content, String replyContent) {
-		super();
-		this.author = author;
-		this.board = board;
-		this.title = title;
-		this.time = time;
-		this.content = content;
-		this.replyContent = replyContent;
 	}
 
 	public void setTitle(String title) {
@@ -64,12 +65,19 @@ public class Letter {
 		this.content = content;
 	}
 
-	public String getReplyContent() {
-		return replyContent;
+	public String getReplyUrl() {
+		return replyUrl;
 	}
 
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
+	public void setReplyUrl(String replyUrl) {
+		this.replyUrl = replyUrl;
 	}
 
+	public String getMailUrl() {
+		return mailUrl;
+	}
+
+	public void setMailUrl(String mailUrl) {
+		this.mailUrl = mailUrl;
+	}
 }

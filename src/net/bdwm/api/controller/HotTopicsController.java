@@ -46,6 +46,7 @@ public class HotTopicsController {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable String operation)
 			throws Exception {
+		long startTime = System.currentTimeMillis();
 		String message = null;
 		if ("division".equals(operation)) {
 			logger.info("division request");
@@ -67,6 +68,8 @@ public class HotTopicsController {
 			logger.warn("HotTopicsController invalid request:" + operation);
 		}
 		response.setCharacterEncoding("UTF-8");
+		long endTime = System.currentTimeMillis();
+		logger.info("HotTopicsController use:"+(endTime - startTime)+"ms for request:"+operation);
 		return new ModelAndView("result", "message", message);
 	}
 
