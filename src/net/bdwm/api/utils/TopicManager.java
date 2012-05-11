@@ -19,7 +19,7 @@ public class TopicManager {
 
 	private static TopicManager instance = null;
 	
-	private static String letterPatternStr = "<pre>(.*?)</pre>";
+	private static String letterPatternStr = "<table class=doc><tr><td class=doc width=710 valign=top><pre>([\\s\\S]*?)</table></tr>";
 	
 	private static String bbsPrefixUrl;
 	
@@ -59,13 +59,27 @@ public class TopicManager {
 			return resultList;
 		}
 		Matcher matcher = letterPattern.matcher(resource);
+		
 		while (matcher.find()) {
+			String tempStr = matcher.group(1);
 			System.out.println(matcher.group(1));
-			
+			parseEachTopic(tempStr, resultList);
 		}
 		
-		
 		return resultList;
+	}
+	
+	private void parseEachTopic(String dataStr, LinkedList<Letter> resultList) {
+		Matcher m = Pattern.compile("发信人: ([^\\s]*) .*?, 信区: ([^\n]*)\n标  题: ([^\n]*)\n发信站: 北大未名站 \\((.*?)\\), .*?\n\n([\\s\\S]*?)--").matcher(dataStr);
+		if (m.find()) {
+			String author = m.group(1);
+			String board = m.group(2);
+			String title = m.group(3);
+			String time = m.group(4);
+			String content = m.group(5).trim();
+			System.out.println(author + board + title + time);
+			System.out.println(content);
+		}
 	}
 	
 
