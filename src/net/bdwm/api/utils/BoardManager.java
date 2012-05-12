@@ -1,21 +1,17 @@
 package net.bdwm.api.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.bdwm.api.model.Topic;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * 
- * @author Ruhao Yao
+ * @author Ruhao Yao: yaoruhao@gmail.com
  * 
  */
 public class BoardManager {
@@ -68,19 +64,9 @@ public class BoardManager {
 
 	public LinkedList<Topic> getBoardData(String boardName, String skip) {
 		LinkedList<Topic> resultList = new LinkedList<Topic>();
-		InputStream in = null;
-		String resource = null;
 		String urlStr = boardUrlPrefix + "board=" + boardName + "&skip=" + skip;
 		long startTime = System.currentTimeMillis();
-		try {
-			in = new URL(urlStr).openStream();
-			resource = IOUtils.toString(in);
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} finally {
-			IOUtils.closeQuietly(in);
-		}
+		String resource = IOUtil.readUrl(urlStr);		
 		if (resource == null) {
 			logger.warn("BoardManager getBoard data failed:" + urlStr);
 			return resultList;

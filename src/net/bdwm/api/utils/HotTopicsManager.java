@@ -1,8 +1,5 @@
 package net.bdwm.api.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -12,14 +9,12 @@ import net.bdwm.api.model.HotTopicsModel;
 import net.bdwm.api.model.Topic;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * 
- * @author Ruhao Yao
+ * @author Ruhao Yao: yaoruhao@gmail.com
  *
  */
 public class HotTopicsManager implements Runnable {
@@ -110,17 +105,7 @@ public class HotTopicsManager implements Runnable {
 	public void run() {
 		while (true) {
 			logger.info("HotTopics update thread running");
-			InputStream in = null;
-			String resource = null;
-			try {
-				in = new URL(bbsMainBoardUrl).openStream();
-				resource = IOUtils.toString(in);
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			} finally {
-				IOUtils.closeQuietly(in);
-			}
+			String resource = IOUtil.readUrl(bbsMainBoardUrl);
 			if (resource != null) {
 				parseMainBoard(resource);
 			}

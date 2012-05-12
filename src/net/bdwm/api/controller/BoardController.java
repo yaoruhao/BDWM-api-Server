@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
- * @author Ruhao Yao
+ * @author Ruhao Yao: yaoruhao@gmail.com
  *
  */
 @Controller
@@ -50,7 +50,8 @@ public class BoardController {
 				boardId, skipId));
 		message = array.toString();
 
-		response.setCharacterEncoding("UTF-8");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=gb2312");
 		long endTime = System.currentTimeMillis();
 		logger.info("BoardController use:"+(endTime - startTime)+"ms for visit board:"+boardId+" skipId:"+skipId);
 		return new ModelAndView("result", "message", message);

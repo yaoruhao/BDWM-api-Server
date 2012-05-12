@@ -3,7 +3,7 @@ package net.bdwm.api.model;
 
 /**
  * 
- * @author yao
+ * @author Ruhao Yao: yaoruhao@gmail.com
  *
  */
 public class Board {

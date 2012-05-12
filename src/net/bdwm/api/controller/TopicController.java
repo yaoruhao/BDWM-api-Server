@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
- * @author Ruhao Yao
+ * @author Ruhao Yao: yaoruhao@gmail.com
  * 
  */
 
@@ -41,32 +41,39 @@ public class TopicController {
 
 	@RequestMapping("/bbstcon.php/{urltail}")
 	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String urltail) throws Exception {
-		long startTime=System.currentTimeMillis();
+			HttpServletResponse response, @PathVariable String urltail)
+			throws Exception {
+		long startTime = System.currentTimeMillis();
 		String message = null;
 
-		JSONArray jsonArray = JSONArray.fromObject(topicManager.getTopicDetail("bbstcon.php?" + urltail));
-		
+		JSONArray jsonArray = JSONArray.fromObject(topicManager
+				.getTopicDetail("bbstcon.php?" + urltail));
+
 		message = jsonArray.toString();
 
-		response.setCharacterEncoding("UTF-8");
-		long endTime=System.currentTimeMillis();
-		logger.info("TopicController use:"+(endTime - startTime)+"ms for request: bbstcon.pho?"+urltail);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=gb2312");
+		long endTime = System.currentTimeMillis();
+		logger.info("TopicController use:" + (endTime - startTime)
+				+ "ms for request: bbstcon.pho?" + urltail);
 		return new ModelAndView("result", "message", message);
 	}
-	
+
 	@RequestMapping("/bbscon.php/{urltail}")
 	public ModelAndView handleTopTopicRequest(HttpServletRequest request,
-			HttpServletResponse response, 
-			@PathVariable String urltail) throws Exception {
-		long startTime=System.currentTimeMillis();
+			HttpServletResponse response, @PathVariable String urltail)
+			throws Exception {
+		long startTime = System.currentTimeMillis();
 		String message = null;
 
-		JSONArray jsonArray = JSONArray.fromObject(topicManager.getTopTopicDetail("bbscon.php?" + urltail));		
+		JSONArray jsonArray = JSONArray.fromObject(topicManager
+				.getTopTopicDetail("bbscon.php?" + urltail));
 		message = jsonArray.toString();
-		response.setCharacterEncoding("UTF-8");
-		long endTime=System.currentTimeMillis();
-		logger.info("TopicController use:"+(endTime - startTime)+"ms for request: bbscon.php?"+urltail);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=gb2312");
+		long endTime = System.currentTimeMillis();
+		logger.info("TopicController use:" + (endTime - startTime)
+				+ "ms for request: bbscon.php?" + urltail);
 		return new ModelAndView("result", "message", message);
 	}
 
