@@ -8,11 +8,7 @@ import net.sf.json.JSONObject;
 
 /**
  * 
-<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
-=======
- * @author Ruhao Yao
->>>>>>> origin/develop
  *
  */
 public class HotTopicsModel {

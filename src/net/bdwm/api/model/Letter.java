@@ -2,11 +2,7 @@ package net.bdwm.api.model;
 
 /**
  * 
-<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
-=======
- * @author Ruhao Yao
->>>>>>> origin/develop
  * 
  */
 public class Letter {
