@@ -1,17 +1,31 @@
 package net.bdwm.api.utils;
 
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+>>>>>>> origin/develop
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.bdwm.api.model.Topic;
 
+<<<<<<< HEAD
+=======
+import org.apache.commons.io.IOUtils;
+>>>>>>> origin/develop
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * 
+<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
+=======
+ * @author Ruhao Yao
+>>>>>>> origin/develop
  * 
  */
 public class BoardManager {
@@ -64,9 +78,25 @@ public class BoardManager {
 
 	public LinkedList<Topic> getBoardData(String boardName, String skip) {
 		LinkedList<Topic> resultList = new LinkedList<Topic>();
+<<<<<<< HEAD
 		String urlStr = boardUrlPrefix + "board=" + boardName + "&skip=" + skip;
 		long startTime = System.currentTimeMillis();
 		String resource = IOUtil.readUrl(urlStr);		
+=======
+		InputStream in = null;
+		String resource = null;
+		String urlStr = boardUrlPrefix + "board=" + boardName + "&skip=" + skip;
+		long startTime = System.currentTimeMillis();
+		try {
+			in = new URL(urlStr).openStream();
+			resource = IOUtils.toString(in);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+>>>>>>> origin/develop
 		if (resource == null) {
 			logger.warn("BoardManager getBoard data failed:" + urlStr);
 			return resultList;

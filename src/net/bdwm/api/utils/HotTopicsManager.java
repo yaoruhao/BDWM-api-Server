@@ -9,12 +9,21 @@ import net.bdwm.api.model.HotTopicsModel;
 import net.bdwm.api.model.Topic;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+<<<<<<< HEAD
+=======
+
+import org.apache.commons.io.IOUtils;
+>>>>>>> origin/develop
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * 
+<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
+=======
+ * @author Ruhao Yao
+>>>>>>> origin/develop
  *
  */
 public class HotTopicsManager implements Runnable {
@@ -105,7 +114,21 @@ public class HotTopicsManager implements Runnable {
 	public void run() {
 		while (true) {
 			logger.info("HotTopics update thread running");
+<<<<<<< HEAD
 			String resource = IOUtil.readUrl(bbsMainBoardUrl);
+=======
+			InputStream in = null;
+			String resource = null;
+			try {
+				in = new URL(bbsMainBoardUrl).openStream();
+				resource = IOUtils.toString(in);
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} finally {
+				IOUtils.closeQuietly(in);
+			}
+>>>>>>> origin/develop
 			if (resource != null) {
 				parseMainBoard(resource);
 			}
@@ -181,6 +204,7 @@ public class HotTopicsManager implements Runnable {
 			logger.info("academic topics update succeed.");
 		} else {
 			logger.warn("academic topics update failed.");
+<<<<<<< HEAD
 		}
 	}
 
@@ -239,6 +263,66 @@ public class HotTopicsManager implements Runnable {
 		}
 	}
 
+=======
+		}
+	}
+
+	private void parseAcademicHotTopics(ArrayList<Topic> academicTopics,
+			String dataStr) {
+
+		// Academic and School hot share the same pattern.
+		Matcher matcher = schoolHotPattern.matcher(dataStr);
+		while (matcher.find()) {
+			String url = matcher.group(1);
+			String name = matcher.group(2);
+			Topic topic = new Topic(name, "学术动态", "AcademicInfo", null, url);
+			academicTopics.add(topic);
+			logger.info("Academic hot topics add:" + topic);
+		}
+
+	}
+
+	private void parseSchoolHotTopics(ArrayList<Topic> schoolTopics,
+			String dataStr) {
+		Matcher matcher = schoolHotPattern.matcher(dataStr);
+		while (matcher.find()) {
+			String url = matcher.group(1);
+			String name = matcher.group(2);
+			Topic topic = new Topic(name, "校园热点", "CampusInfo", null, url);
+			schoolTopics.add(topic);
+			logger.info("School hot topics add:" + topic);
+		}
+	}
+
+	private void parseDivisionTopics(
+			HashMap<String, ArrayList<Topic>> divisionTopics, String dataStr) {
+		Matcher matcher = divisionPattern.matcher(dataStr);
+		while (matcher.find()) {
+			String topDivisionStr = matcher.group(1);
+			String tempStr = matcher.group(2);
+			Matcher m = divisionEachPattern.matcher(tempStr);
+			ArrayList<Topic> topicList = new ArrayList<Topic>();
+			while (m.find()) {
+				String division = m.group(1);
+				String url = m.group(2);
+				String name = m.group(3);
+				String board = null;
+				String threadId = null;
+				Matcher urlMatcher = urlPattern.matcher(url);
+				if (urlMatcher.find()) {
+					board = urlMatcher.group(1);
+					threadId = urlMatcher.group(2);
+				}
+				Topic topic = new Topic(name, division, board, threadId, url);
+				topicList.add(topic);
+			}
+			divisionTopics.put(topDivisionStr, topicList);
+			logger.info("Top Division:" + topDivisionStr + " added "
+					+ topicList.size() + " topics.");
+		}
+	}
+
+>>>>>>> origin/develop
 	private void parseTopTenTopics(ArrayList<Topic> topTenTopics,
 			String topTenStr) {
 		Matcher topTenMatch = topTenEachPattern.matcher(topTenStr);

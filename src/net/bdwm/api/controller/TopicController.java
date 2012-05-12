@@ -15,7 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
+<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
+=======
+ * @author Ruhao Yao
+>>>>>>> origin/develop
  * 
  */
 
@@ -41,6 +45,7 @@ public class TopicController {
 
 	@RequestMapping("/bbstcon.php/{urltail}")
 	public ModelAndView handleRequest(HttpServletRequest request,
+<<<<<<< HEAD
 			HttpServletResponse response, @PathVariable String urltail)
 			throws Exception {
 		long startTime = System.currentTimeMillis();
@@ -74,6 +79,34 @@ public class TopicController {
 		long endTime = System.currentTimeMillis();
 		logger.info("TopicController use:" + (endTime - startTime)
 				+ "ms for request: bbscon.php?" + urltail);
+=======
+			HttpServletResponse response, @PathVariable String urltail) throws Exception {
+		long startTime=System.currentTimeMillis();
+		String message = null;
+
+		JSONArray jsonArray = JSONArray.fromObject(topicManager.getTopicDetail("bbstcon.php?" + urltail));
+		
+		message = jsonArray.toString();
+
+		response.setCharacterEncoding("UTF-8");
+		long endTime=System.currentTimeMillis();
+		logger.info("TopicController use:"+(endTime - startTime)+"ms for request: bbstcon.pho?"+urltail);
+		return new ModelAndView("result", "message", message);
+	}
+	
+	@RequestMapping("/bbscon.php/{urltail}")
+	public ModelAndView handleTopTopicRequest(HttpServletRequest request,
+			HttpServletResponse response, 
+			@PathVariable String urltail) throws Exception {
+		long startTime=System.currentTimeMillis();
+		String message = null;
+
+		JSONArray jsonArray = JSONArray.fromObject(topicManager.getTopTopicDetail("bbscon.php?" + urltail));		
+		message = jsonArray.toString();
+		response.setCharacterEncoding("UTF-8");
+		long endTime=System.currentTimeMillis();
+		logger.info("TopicController use:"+(endTime - startTime)+"ms for request: bbscon.php?"+urltail);
+>>>>>>> origin/develop
 		return new ModelAndView("result", "message", message);
 	}
 

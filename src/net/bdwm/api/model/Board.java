@@ -3,7 +3,11 @@ package net.bdwm.api.model;
 
 /**
  * 
+<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
+=======
+ * @author yao
+>>>>>>> origin/develop
  *
  */
 public class Board {

@@ -15,7 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
+<<<<<<< HEAD
  * @author Ruhao Yao: yaoruhao@gmail.com
+=======
+ * @author Ruhao Yao
+>>>>>>> origin/develop
  *
  */
 @Controller
@@ -67,8 +71,12 @@ public class HotTopicsController {
 		} else {
 			logger.warn("HotTopicsController invalid request:" + operation);
 		}
+<<<<<<< HEAD
 		response.setHeader("Cache-Control", "no-cache");
 		response.setContentType("text/json;charset=gb2312");
+=======
+		response.setCharacterEncoding("UTF-8");
+>>>>>>> origin/develop
 		long endTime = System.currentTimeMillis();
 		logger.info("HotTopicsController use:"+(endTime - startTime)+"ms for request:"+operation);
 		return new ModelAndView("result", "message", message);
